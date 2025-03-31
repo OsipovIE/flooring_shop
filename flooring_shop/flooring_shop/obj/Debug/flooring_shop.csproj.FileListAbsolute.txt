@@ -116,3 +116,29 @@ D:\Osipov\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.cspro
 D:\Osipov\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.csproj.CopyComplete
 D:\Osipov\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.exe
 D:\Osipov\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.pdb
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.csproj.AssemblyReference.cache
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\Interop.Microsoft.Office.Core.dll
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\Interop.Microsoft.Office.Interop.Word.dll
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\Interop.VBIDE.dll
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.csproj.ResolveComReference.cache
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.AddProductForm.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.AdminAddUserForm.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.AdminEditUserForm.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.Administrator.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.AdminUsersForm.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.AdministratorWord.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.Authorization.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.BackProduct.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.CommoditySpecialist.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.DbSettingsForm.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.DeleteProductForm.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.EditProductForm.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.HistorySeller.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.Properties.Resources.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.SellerForm.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.SellerOrder.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.SellerOrderGo.resources
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.csproj.GenerateResource.cache
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.csproj.CoreCompileInputs.cache
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.exe
+C:\Users\student243\Desktop\Новая папка\курсач\flooring_shop\flooring_shop\obj\Debug\flooring_shop.pdb
