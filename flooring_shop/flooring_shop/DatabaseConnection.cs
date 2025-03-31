@@ -5,16 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Configuration; 
 
 namespace flooring_shop
 {
     public class DatabaseConnection
     {
         private MySqlConnection connection;
-
+        public static string connectionString { get; private set; }
         public DatabaseConnection()
         {
-            string connectionString = "server=localhost;user=root;password=root;database=flooring_shop;";
+            string server = ConfigurationManager.AppSettings["DbServer"];
+            string database = ConfigurationManager.AppSettings["DbName"];
+            string user = ConfigurationManager.AppSettings["DbUser"];
+            string password = ConfigurationManager.AppSettings["DbPassword"];
+            connectionString = $"server={server};user={database};password={user};database={database};";
             connection = new MySqlConnection(connectionString);
         }
 
