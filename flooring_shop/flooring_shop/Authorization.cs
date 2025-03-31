@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -20,6 +21,16 @@ namespace flooring_shop
         {
             string login = Logintxt.Text;
             string password = Pwdtxt.Text;
+            string localAdminLogin = ConfigurationManager.AppSettings["LocalAdminLogin"];
+            string localAdminPassword = ConfigurationManager.AppSettings["LocalAdminPassword"];
+            if(login == localAdminLogin && password == localAdminPassword) 
+            {
+                DbSettingsForm setFo = new DbSettingsForm();
+                this.Hide();
+                setFo.ShowDialog();
+                this.Show();
+                return;
+            }
 
             DatabaseConnection dbConnection = new DatabaseConnection();
 
