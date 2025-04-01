@@ -66,7 +66,8 @@ namespace flooring_shop
 
         private void AdminAddUserForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Close();
+            Authorization authForm = new Authorization();
+            authForm.Show();
         }
 
         private void EyeBtn_Click_1(object sender, EventArgs e)

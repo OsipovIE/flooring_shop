@@ -50,10 +50,9 @@ namespace flooring_shop
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DbSettingsForm setFo = new DbSettingsForm();
+            DbSettingsForm settings = new DbSettingsForm();
             this.Hide();
-            setFo.ShowDialog();
-            this.Show();
+            settings.Show();
         }
     }
 }

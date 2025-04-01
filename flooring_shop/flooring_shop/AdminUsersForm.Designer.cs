@@ -42,21 +42,20 @@ namespace flooring_shop
             // 
             this.DGVUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVUsers.Location = new System.Drawing.Point(12, 43);
+            this.DGVUsers.Location = new System.Drawing.Point(12, 51);
             this.DGVUsers.Name = "DGVUsers";
             this.DGVUsers.RowHeadersWidth = 51;
-            this.DGVUsers.Size = new System.Drawing.Size(541, 264);
+            this.DGVUsers.Size = new System.Drawing.Size(559, 264);
             this.DGVUsers.TabIndex = 0;
             // 
             // EditUserBtn
             // 
-            this.EditUserBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EditUserBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.EditUserBtn.BackColor = System.Drawing.Color.PeachPuff;
             this.EditUserBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.EditUserBtn.Location = new System.Drawing.Point(379, 326);
+            this.EditUserBtn.Location = new System.Drawing.Point(379, 341);
             this.EditUserBtn.Name = "EditUserBtn";
-            this.EditUserBtn.Size = new System.Drawing.Size(174, 69);
+            this.EditUserBtn.Size = new System.Drawing.Size(192, 69);
             this.EditUserBtn.TabIndex = 1;
             this.EditUserBtn.Text = "Изменить";
             this.EditUserBtn.UseVisualStyleBackColor = false;
@@ -68,9 +67,9 @@ namespace flooring_shop
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DeleteUserBtn.BackColor = System.Drawing.Color.PeachPuff;
             this.DeleteUserBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.DeleteUserBtn.Location = new System.Drawing.Point(185, 326);
+            this.DeleteUserBtn.Location = new System.Drawing.Point(185, 341);
             this.DeleteUserBtn.Name = "DeleteUserBtn";
-            this.DeleteUserBtn.Size = new System.Drawing.Size(174, 69);
+            this.DeleteUserBtn.Size = new System.Drawing.Size(192, 69);
             this.DeleteUserBtn.TabIndex = 2;
             this.DeleteUserBtn.Text = "Удалить";
             this.DeleteUserBtn.UseVisualStyleBackColor = false;
@@ -78,13 +77,12 @@ namespace flooring_shop
             // 
             // AddUserBtn
             // 
-            this.AddUserBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddUserBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AddUserBtn.BackColor = System.Drawing.Color.PeachPuff;
             this.AddUserBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.AddUserBtn.Location = new System.Drawing.Point(12, 326);
+            this.AddUserBtn.Location = new System.Drawing.Point(12, 341);
             this.AddUserBtn.Name = "AddUserBtn";
-            this.AddUserBtn.Size = new System.Drawing.Size(152, 69);
+            this.AddUserBtn.Size = new System.Drawing.Size(170, 69);
             this.AddUserBtn.TabIndex = 3;
             this.AddUserBtn.Text = "Добавить";
             this.AddUserBtn.UseVisualStyleBackColor = false;
@@ -104,7 +102,7 @@ namespace flooring_shop
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.ClientSize = new System.Drawing.Size(565, 407);
+            this.ClientSize = new System.Drawing.Size(583, 422);
             this.Controls.Add(this.Users);
             this.Controls.Add(this.AddUserBtn);
             this.Controls.Add(this.DeleteUserBtn);

@@ -242,7 +242,7 @@ namespace flooring_shop
                 AddProductForm orderForm = new AddProductForm();
                 orderForm.ShowDialog();
             this.Hide();
-            // Очищаем список после оформления заказа
+            // Очищаем список после добавления товара
             selectedProducts.Clear();
         }
 

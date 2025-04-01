@@ -105,7 +105,8 @@ namespace flooring_shop
 
         private void AdminEditUserForm_FormClosing_1(object sender, FormClosingEventArgs e)
         {
-            this.Close();
+            Authorization authForm = new Authorization();
+            authForm.Show();
         }
 
         private void SaveBtn_Click_1(object sender, EventArgs e)

@@ -109,7 +109,8 @@ namespace flooring_shop
 
         private void AddProductForm_FormClosing_1(object sender, FormClosingEventArgs e)
         {
-            this.Close();
+            CommoditySpecialist comspec = new CommoditySpecialist();
+            comspec.Show();
         }
 
         private void btnGenerate_Click_1(object sender, EventArgs e)

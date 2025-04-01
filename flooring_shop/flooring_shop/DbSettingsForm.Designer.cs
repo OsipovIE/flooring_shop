@@ -93,6 +93,7 @@ namespace flooring_shop
             this.TestConnection.TabIndex = 21;
             this.TestConnection.Text = "Проверить подключение";
             this.TestConnection.UseVisualStyleBackColor = false;
+            this.TestConnection.Click += new System.EventHandler(this.TestConnection_Click_1);
             // 
             // btnSave
             // 
@@ -107,6 +108,7 @@ namespace flooring_shop
             this.btnSave.TabIndex = 20;
             this.btnSave.Text = "Сохранить настройки";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
             // 
             // label4
             // 
@@ -278,6 +280,7 @@ namespace flooring_shop
             this.Name = "DbSettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DbSettingsForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

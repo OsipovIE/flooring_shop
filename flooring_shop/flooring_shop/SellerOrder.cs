@@ -172,28 +172,7 @@ namespace flooring_shop
             // Обновляем DataGridView
             DGVProdOrderSeller.DataSource = filteredDataTable.DefaultView.ToTable();
         }
-
-        // Метод для получения ID категории по её названию
-        private int GetCategoryIdByName(string categoryName)
-        {
-            if (dbConnection.OpenConnection())
-            {
-                string query = "SELECT ProdCategoryID FROM ProdCategory WHERE ProdCategoryName = @CategoryName";
-                using (MySqlCommand command = new MySqlCommand(query, dbConnection.GetConnection()))
-                {
-                    command.Parameters.AddWithValue("@CategoryName", categoryName);
-                    object result = command.ExecuteScalar();
-                    dbConnection.CloseConnection();
-
-                    if (result != null && int.TryParse(result.ToString(), out int categoryId))
-                    {
-                        return categoryId;
-                    }
-                }
-            }
-            return -1; // Если категория не найдена
-        }
-
+ 
         // Обработчик изменения выбора в ComboBox для фильтрации
         private void CmbFilter_SelectedIndexChanged_1(object sender, EventArgs e)
         {
