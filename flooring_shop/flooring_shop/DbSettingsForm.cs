@@ -69,5 +69,15 @@ namespace flooring_shop
                 MessageBox.Show($"Ошибка сохранения настроек:\n{ex.Message}", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void CSVimportBTN_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HealthBDbtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

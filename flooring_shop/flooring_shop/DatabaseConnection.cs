@@ -19,7 +19,7 @@ namespace flooring_shop
             string database = ConfigurationManager.AppSettings["DbName"];
             string user = ConfigurationManager.AppSettings["DbUser"];
             string password = ConfigurationManager.AppSettings["DbPassword"];
-            connectionString = $"server={server};user={database};password={user};database={database};";
+            connectionString = $"server={server};user={user};password={password};database={database};";
             connection = new MySqlConnection(connectionString);
         }
 
