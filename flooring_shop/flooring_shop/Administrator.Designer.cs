@@ -35,6 +35,7 @@ namespace flooring_shop
             this.AdminForms = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.AdminName = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AdminUsersBtn
@@ -42,7 +43,7 @@ namespace flooring_shop
             this.AdminUsersBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.AdminUsersBtn.BackColor = System.Drawing.Color.PeachPuff;
             this.AdminUsersBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.AdminUsersBtn.Location = new System.Drawing.Point(12, 144);
+            this.AdminUsersBtn.Location = new System.Drawing.Point(12, 132);
             this.AdminUsersBtn.Name = "AdminUsersBtn";
             this.AdminUsersBtn.Size = new System.Drawing.Size(454, 64);
             this.AdminUsersBtn.TabIndex = 1;
@@ -55,7 +56,7 @@ namespace flooring_shop
             this.AdminWordBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.AdminWordBtn.BackColor = System.Drawing.Color.PeachPuff;
             this.AdminWordBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.AdminWordBtn.Location = new System.Drawing.Point(12, 224);
+            this.AdminWordBtn.Location = new System.Drawing.Point(12, 212);
             this.AdminWordBtn.Name = "AdminWordBtn";
             this.AdminWordBtn.Size = new System.Drawing.Size(454, 64);
             this.AdminWordBtn.TabIndex = 2;
@@ -96,12 +97,26 @@ namespace flooring_shop
             this.AdminName.TabIndex = 4;
             this.AdminName.Text = "Администратор -";
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.PeachPuff;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Location = new System.Drawing.Point(12, 292);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(454, 64);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Настройки";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Administrator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.ClientSize = new System.Drawing.Size(481, 311);
+            this.ClientSize = new System.Drawing.Size(481, 404);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.AdminName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AdminForms);
@@ -128,5 +143,6 @@ namespace flooring_shop
         private System.Windows.Forms.Label AdminForms;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label AdminName;
+        private System.Windows.Forms.Button button1;
     }
 }

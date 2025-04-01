@@ -47,5 +47,13 @@ namespace flooring_shop
             this.Hide();
             adminword.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DbSettingsForm setFo = new DbSettingsForm();
+            this.Hide();
+            setFo.ShowDialog();
+            this.Show();
+        }
     }
 }
