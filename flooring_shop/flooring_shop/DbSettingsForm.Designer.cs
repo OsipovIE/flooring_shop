@@ -44,10 +44,10 @@ namespace flooring_shop
             this.txtServer = new System.Windows.Forms.TextBox();
             this.txtDatabase = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.HealthBDbtn = new System.Windows.Forms.Button();
+            this.NameTable = new System.Windows.Forms.ComboBox();
             this.CSVimportBTN = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.HealthBDbtn = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -202,7 +202,7 @@ namespace flooring_shop
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.Color.White;
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.NameTable);
             this.groupBox2.Controls.Add(this.CSVimportBTN);
             this.groupBox2.Controls.Add(this.HealthBDbtn);
             this.groupBox2.Controls.Add(this.label5);
@@ -213,32 +213,14 @@ namespace flooring_shop
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Восстановление структуры и данных БД";
             // 
-            // label5
+            // NameTable
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 52);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(191, 46);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "Импортировать данные\r\nследующей таблицы:";
-            // 
-            // HealthBDbtn
-            // 
-            this.HealthBDbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HealthBDbtn.BackColor = System.Drawing.Color.PeachPuff;
-            this.HealthBDbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.HealthBDbtn.Location = new System.Drawing.Point(25, 265);
-            this.HealthBDbtn.Name = "HealthBDbtn";
-            this.HealthBDbtn.Size = new System.Drawing.Size(239, 77);
-            this.HealthBDbtn.TabIndex = 22;
-            this.HealthBDbtn.Text = "Восстановить структуру БД";
-            this.HealthBDbtn.UseVisualStyleBackColor = false;
-            this.HealthBDbtn.Click += new System.EventHandler(this.HealthBDbtn_Click);
+            this.NameTable.FormattingEnabled = true;
+            this.NameTable.Location = new System.Drawing.Point(25, 111);
+            this.NameTable.Name = "NameTable";
+            this.NameTable.Size = new System.Drawing.Size(239, 31);
+            this.NameTable.TabIndex = 24;
+            this.NameTable.SelectedIndexChanged += new System.EventHandler(this.NameTable_SelectedIndexChanged);
             // 
             // CSVimportBTN
             // 
@@ -255,13 +237,32 @@ namespace flooring_shop
             this.CSVimportBTN.UseVisualStyleBackColor = false;
             this.CSVimportBTN.Click += new System.EventHandler(this.CSVimportBTN_Click);
             // 
-            // comboBox1
+            // HealthBDbtn
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(25, 111);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(239, 31);
-            this.comboBox1.TabIndex = 24;
+            this.HealthBDbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HealthBDbtn.BackColor = System.Drawing.Color.PeachPuff;
+            this.HealthBDbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.HealthBDbtn.Location = new System.Drawing.Point(25, 265);
+            this.HealthBDbtn.Name = "HealthBDbtn";
+            this.HealthBDbtn.Size = new System.Drawing.Size(239, 77);
+            this.HealthBDbtn.TabIndex = 22;
+            this.HealthBDbtn.Text = "Восстановить структуру БД";
+            this.HealthBDbtn.UseVisualStyleBackColor = false;
+            this.HealthBDbtn.Click += new System.EventHandler(this.HealthBDbtn_Click);
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(21, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(191, 46);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Импортировать данные\r\nследующей таблицы:";
             // 
             // DbSettingsForm
             // 
@@ -300,7 +301,7 @@ namespace flooring_shop
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.TextBox txtServer;
         private System.Windows.Forms.TextBox txtDatabase;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox NameTable;
         private System.Windows.Forms.Button CSVimportBTN;
         private System.Windows.Forms.Button HealthBDbtn;
         private System.Windows.Forms.Label label5;
