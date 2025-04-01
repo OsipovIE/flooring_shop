@@ -153,7 +153,41 @@ namespace flooring_shop
 
         private void HealthBDbtn_Click(object sender, EventArgs e)
         {
-                        
+            var dbConnection = new DatabaseConnection();
+            using (var connection = dbConnection.GetConnection())
+            {
+                if (NameTable.SelectedItem == null)
+                {
+                    MessageBox.Show("Пожалуйста выберите файл.");
+                    return;
+                }
+                OpenFileDialog openFileD = new OpenFileDialog
+                {
+                    Filter = "sql files (*.sql)|*.sql",
+                    Title = "Выберите sql файл"
+                };
+                try
+                {
+                    if (openFileD.ShowDialog() == DialogResult.OK)
+                    {
+                        var scr = File.ReadAllText(openFileD.FileName);
+                        MySqlCommand cmd2 = new MySqlCommand(scr, connection);
+                        connection.Open();
+                        cmd2.ExecuteNonQuery();
+                        LoadTables();
+                        MessageBox.Show("База данных восстановлена успешно.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при чтении: " + ex.Message);
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
         }
 
         private void NameTable_SelectedIndexChanged(object sender, EventArgs e)
