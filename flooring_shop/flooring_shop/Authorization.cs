@@ -18,79 +18,100 @@ namespace flooring_shop
             InitializeComponent();
             Pwdtxt.PasswordChar = '•';
             EyeBtn.Text = "👁";
+            // Изначально скрываем CAPTCHA
+            CaptchaPanel.Visible = false;
+            captchaTextBox.Enabled = false;
+            checkCaptchaButton.Enabled = false;
+            refreshCapthaButton.Enabled = false;
         }
 
         private void LoginIn_Click(object sender, EventArgs e)
         {
-            string login = Logintxt.Text;
-            string password = Pwdtxt.Text;
-            string localAdminLogin = ConfigurationManager.AppSettings["LocalAdminLogin"];
-            string localAdminPassword = ConfigurationManager.AppSettings["LocalAdminPassword"];
-            if(login == localAdminLogin && password == localAdminPassword) 
-            {
-                DbSettingsForm setFo = new DbSettingsForm();
-                this.Hide();
-                setFo.ShowDialog();
-                this.Show();
-                return;
-            }
-
-            DatabaseConnection dbConnection = new DatabaseConnection();
-
-            if (dbConnection.OpenConnection())
-            {
-                string query = $"SELECT UserRole, UserSurname, UserName, UserPatronymic FROM User WHERE UserLogin='{login}' AND UserPassword='{password}'";
-                MySqlDataReader reader = dbConnection.ExecuteQuery(query);
-
-                if (reader.HasRows)
+                if (CaptchaPanel.Visible)
                 {
-                    reader.Read();
-                    int role = reader.GetInt32("UserRole");
-                    string surname = reader["UserSurname"].ToString();
-                    string name = reader["UserName"].ToString();
-                    string patronymic = reader["UserPatronymic"].ToString();
+                    MessageBox.Show("Пожалуйста, сначала пройдите CAPTCHA");
+                    return;
+                }
 
-                    // Форматируем ФИО: фамилия полностью, имя и отчество — инициалы
-                    string userFullName = $"{surname} {name[0]}.{patronymic[0]}.";
+                string login = Logintxt.Text;
+                string password = Pwdtxt.Text;
+                string localAdminLogin = ConfigurationManager.AppSettings["LocalAdminLogin"];
+                string localAdminPassword = ConfigurationManager.AppSettings["LocalAdminPassword"];
 
-                    switch (role)
+                if (login == localAdminLogin && password == localAdminPassword)
+                {
+                    DbSettingsForm setFo = new DbSettingsForm();
+                    this.Hide();
+                    setFo.ShowDialog();
+                    this.Show();
+                    return;
+                }
+
+                DatabaseConnection dbConnection = new DatabaseConnection();
+
+                if (dbConnection.OpenConnection())
+                {
+                    string query = $"SELECT UserRole, UserSurname, UserName, UserPatronymic FROM User WHERE UserLogin='{login}' AND UserPassword='{password}'";
+                    MySqlDataReader reader = dbConnection.ExecuteQuery(query);
+
+                    if (reader.HasRows)
                     {
-                        case 1:
-                            Administrator adminForm = new Administrator();
-                            adminForm.SetAdminInfo(userFullName);
-                            this.Hide();
-                            adminForm.Show();
-                            break;
-                        case 2:
-                            SellerForm sellerForm = new SellerForm();
-                            sellerForm.SetUserInfo(userFullName); // Передаем информацию о пользователе
-                            this.Hide();
-                            sellerForm.Show();
-                            break;
-                        case 3:
-                            CommoditySpecialist commodityForm = new CommoditySpecialist();
-                            commodityForm.SetUserInfomerch(userFullName);
-                            this.Hide();
-                            commodityForm.Show();
-                            break;
-                        default:
-                            MessageBox.Show("Доступ запрещен.");
-                            break;
+                        reader.Read();
+                        int role = reader.GetInt32("UserRole");
+                        string surname = reader["UserSurname"].ToString();
+                        string name = reader["UserName"].ToString();
+                        string patronymic = reader["UserPatronymic"].ToString();
+
+                        string userFullName = $"{surname} {name[0]}.{patronymic[0]}.";
+
+                        switch (role)
+                        {
+                            case 1:
+                                Administrator adminForm = new Administrator();
+                                adminForm.SetAdminInfo(userFullName);
+                                this.Hide();
+                                adminForm.Show();
+                                break;
+                            case 2:
+                                SellerForm sellerForm = new SellerForm();
+                                sellerForm.SetUserInfo(userFullName);
+                                this.Hide();
+                                sellerForm.Show();
+                                break;
+                            case 3:
+                                CommoditySpecialist commodityForm = new CommoditySpecialist();
+                                commodityForm.SetUserInfomerch(userFullName);
+                                this.Hide();
+                                commodityForm.Show();
+                                break;
+                            default:
+                                MessageBox.Show("Доступ запрещен.");
+                                break;
+                        }
+                        failedAttempts = 0; // Сбрасываем счетчик при успешной авторизации
                     }
+                    else
+                    {
+                        failedAttempts++;
+                        MessageBox.Show("Неверный логин или пароль.");
+
+                        // После 3 неудачных попыток показываем CAPTCHA
+                        if (failedAttempts >= 3)
+                        {
+                            ShowCaptcha();
+                        Logintxt.Text = "";
+                        Pwdtxt.Text = "";
+                        }
+                    }
+
+                    reader.Close();
+                    dbConnection.CloseConnection();
                 }
                 else
                 {
-                    MessageBox.Show("Неверный логин или пароль.");
+                    MessageBox.Show("Ошибка подключения к базе данных.");
                 }
-
-                reader.Close();
-                dbConnection.CloseConnection();
             }
-            else
-            {
-                MessageBox.Show("Ошибка подключения к базе данных.");
-            }
-        }
 
         private void Logintxt_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -157,6 +178,20 @@ namespace flooring_shop
             // Добавляем визуальные эффекты
             СaptchaLabel.Font = new Font("Arial", 14, FontStyle.Bold);
             СaptchaLabel.ForeColor = Color.FromArgb(random.Next(100, 200), random.Next(100, 200), random.Next(100, 200));
+        }
+        private void ShowCaptcha()
+        {
+            GenerateCaptcha();
+            CaptchaPanel.Visible = true;
+            captchaTextBox.Enabled = true;
+            checkCaptchaButton.Enabled = true;
+            refreshCapthaButton.Enabled = true;
+
+            // Блокируем основные поля ввода
+            Logintxt.Enabled = false;
+            Pwdtxt.Enabled = false;
+            LoginIn.Enabled = false;
+            EyeBtn.Enabled = false;
         }
         private void HideCaptcha()
         {
