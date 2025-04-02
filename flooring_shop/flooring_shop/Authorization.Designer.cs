@@ -35,10 +35,16 @@ namespace flooring_shop
             this.Password = new System.Windows.Forms.Label();
             this.Logintxt = new System.Windows.Forms.TextBox();
             this.Pwdtxt = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.EyeBtn = new System.Windows.Forms.Label();
+            this.captchaTextBox = new System.Windows.Forms.TextBox();
+            this.refreshCapthaButton = new System.Windows.Forms.Button();
+            this.checkCaptchaButton = new System.Windows.Forms.Button();
+            this.CaptchaPanel = new System.Windows.Forms.Panel();
+            this.СaptchaLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.CaptchaPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // LoginIn
@@ -91,6 +97,85 @@ namespace flooring_shop
             this.Pwdtxt.TabIndex = 2;
             this.Pwdtxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Pwdtxt_KeyPress);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 283);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(646, 101);
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
+            // EyeBtn
+            // 
+            this.EyeBtn.AutoSize = true;
+            this.EyeBtn.Location = new System.Drawing.Point(301, 157);
+            this.EyeBtn.Name = "EyeBtn";
+            this.EyeBtn.Size = new System.Drawing.Size(32, 23);
+            this.EyeBtn.TabIndex = 7;
+            this.EyeBtn.Text = "👁";
+            this.EyeBtn.Click += new System.EventHandler(this.EyeBtn_Click);
+            // 
+            // captchaTextBox
+            // 
+            this.captchaTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.captchaTextBox.Location = new System.Drawing.Point(339, 154);
+            this.captchaTextBox.Name = "captchaTextBox";
+            this.captchaTextBox.Size = new System.Drawing.Size(316, 30);
+            this.captchaTextBox.TabIndex = 8;
+            // 
+            // refreshCapthaButton
+            // 
+            this.refreshCapthaButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshCapthaButton.BackColor = System.Drawing.Color.PeachPuff;
+            this.refreshCapthaButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.refreshCapthaButton.Location = new System.Drawing.Point(338, 213);
+            this.refreshCapthaButton.Name = "refreshCapthaButton";
+            this.refreshCapthaButton.Size = new System.Drawing.Size(157, 64);
+            this.refreshCapthaButton.TabIndex = 9;
+            this.refreshCapthaButton.Text = "Новая CAPTCHA";
+            this.refreshCapthaButton.UseVisualStyleBackColor = false;
+            this.refreshCapthaButton.Click += new System.EventHandler(this.refreshCapthaButton_Click);
+            // 
+            // checkCaptchaButton
+            // 
+            this.checkCaptchaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkCaptchaButton.BackColor = System.Drawing.Color.PeachPuff;
+            this.checkCaptchaButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.checkCaptchaButton.Location = new System.Drawing.Point(501, 213);
+            this.checkCaptchaButton.Name = "checkCaptchaButton";
+            this.checkCaptchaButton.Size = new System.Drawing.Size(157, 64);
+            this.checkCaptchaButton.TabIndex = 10;
+            this.checkCaptchaButton.Text = "Проверить";
+            this.checkCaptchaButton.UseVisualStyleBackColor = false;
+            this.checkCaptchaButton.Click += new System.EventHandler(this.checkCaptchaButton_Click);
+            // 
+            // CaptchaPanel
+            // 
+            this.CaptchaPanel.Controls.Add(this.СaptchaLabel);
+            this.CaptchaPanel.Location = new System.Drawing.Point(339, 51);
+            this.CaptchaPanel.Name = "CaptchaPanel";
+            this.CaptchaPanel.Size = new System.Drawing.Size(200, 100);
+            this.CaptchaPanel.TabIndex = 11;
+            // 
+            // СaptchaLabel
+            // 
+            this.СaptchaLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.СaptchaLabel.AutoSize = true;
+            this.СaptchaLabel.Location = new System.Drawing.Point(54, 36);
+            this.СaptchaLabel.Name = "СaptchaLabel";
+            this.СaptchaLabel.Size = new System.Drawing.Size(85, 23);
+            this.СaptchaLabel.TabIndex = 12;
+            this.СaptchaLabel.Text = "CAPTCHA";
+            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -102,30 +187,6 @@ namespace flooring_shop
             this.label3.TabIndex = 5;
             this.label3.Text = "Авторизация";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 283);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(321, 101);
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
-            // 
-            // EyeBtn
-            // 
-            this.EyeBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.EyeBtn.AutoSize = true;
-            this.EyeBtn.Location = new System.Drawing.Point(301, 157);
-            this.EyeBtn.Name = "EyeBtn";
-            this.EyeBtn.Size = new System.Drawing.Size(32, 23);
-            this.EyeBtn.TabIndex = 7;
-            this.EyeBtn.Text = "👁";
-            this.EyeBtn.Click += new System.EventHandler(this.EyeBtn_Click);
-            // 
             // Authorization
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -133,6 +194,10 @@ namespace flooring_shop
             this.BackColor = System.Drawing.Color.AntiqueWhite;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(667, 396);
+            this.Controls.Add(this.CaptchaPanel);
+            this.Controls.Add(this.checkCaptchaButton);
+            this.Controls.Add(this.refreshCapthaButton);
+            this.Controls.Add(this.captchaTextBox);
             this.Controls.Add(this.EyeBtn);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label3);
@@ -151,6 +216,8 @@ namespace flooring_shop
             this.Text = "Авторизация";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Authorization_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.CaptchaPanel.ResumeLayout(false);
+            this.CaptchaPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,8 +230,13 @@ namespace flooring_shop
         private System.Windows.Forms.Label Password;
         private System.Windows.Forms.TextBox Logintxt;
         private System.Windows.Forms.TextBox Pwdtxt;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label EyeBtn;
+        private System.Windows.Forms.TextBox captchaTextBox;
+        private System.Windows.Forms.Button refreshCapthaButton;
+        private System.Windows.Forms.Button checkCaptchaButton;
+        private System.Windows.Forms.Panel CaptchaPanel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label СaptchaLabel;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -10,6 +11,7 @@ namespace flooring_shop
     public partial class Authorization : Form
     {
         private bool passwordVisible = false;
+        private string currentCaptcha;
         public Authorization()
         {
             InitializeComponent();
@@ -129,5 +131,44 @@ namespace flooring_shop
                 return builder.ToString();
             }
         }
+        private void GenerateCaptcha()
+        {
+            Random random = new Random();
+            string letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+            string numbers = "23456789";
+
+            // Генерируем 2 буквы
+            char letter1 = letters[random.Next(letters.Length)];
+            char letter2 = letters[random.Next(letters.Length)];
+
+            // Генерируем 4 цифры
+            char num1 = numbers[random.Next(numbers.Length)];
+            char num2 = numbers[random.Next(numbers.Length)];
+            char num3 = numbers[random.Next(numbers.Length)];
+            char num4 = numbers[random.Next(numbers.Length)];
+
+            // Собираем CAPTCHA (2 буквы + 4 цифры)
+            currentCaptcha = $"{letter1}{letter2}{num1}{num2}{num3}{num4}";
+
+            // Отображаем CAPTCHA
+            СaptchaLabel.Text = currentCaptcha;
+
+            // Добавляем визуальные эффекты
+            СaptchaLabel.Font = new Font("Arial", 14, FontStyle.Bold);
+            СaptchaLabel.ForeColor = Color.FromArgb(random.Next(100, 200), random.Next(100, 200), random.Next(100, 200));
+        }
+
+        private void checkCaptchaButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void refreshCapthaButton_Click(object sender, EventArgs e)
+        {
+            GenerateCaptcha();
+            captchaTextBox.Text = "";
+            captchaTextBox.Focus();
+        }
+
     }
 }
