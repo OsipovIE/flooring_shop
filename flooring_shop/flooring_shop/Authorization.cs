@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -13,16 +14,14 @@ namespace flooring_shop
         private bool passwordVisible = false;
         private string currentCaptcha= "";
         private int failedAttempts = 0;
+        private readonly Random random = new Random();
+        private readonly string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
         public Authorization()
         {
             InitializeComponent();
             Pwdtxt.PasswordChar = '•';
-            EyeBtn.Text = "👁";
-            // Изначально скрываем CAPTCHA
-            CaptchaPanel.Visible = false;
-            captchaTextBox.Enabled = false;
-            checkCaptchaButton.Enabled = false;
-            refreshCapthaButton.Enabled = false;
+            EyeBtn.Text = "#";
+            HideCaptcha();
         }
 
         private void LoginIn_Click(object sender, EventArgs e)
@@ -98,9 +97,11 @@ namespace flooring_shop
                         // После 3 неудачных попыток показываем CAPTCHA
                         if (failedAttempts >= 3)
                         {
+                        MessageBox.Show("Заполните поля еще раз, и пройдите капчу!","Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             ShowCaptcha();
                         Logintxt.Text = "";
                         Pwdtxt.Text = "";
+                        Logintxt.Focus();
                         }
                     }
 
@@ -138,7 +139,7 @@ namespace flooring_shop
         {
             passwordVisible = !passwordVisible;
             Pwdtxt.PasswordChar = passwordVisible ? '\0' : '•';
-            EyeBtn.Text = passwordVisible ? "👁" : "👁";
+            EyeBtn.Text = passwordVisible ? "👁" : "#";
         }
         private string ComputeSha256Hash(string rawData)
         {
@@ -155,29 +156,29 @@ namespace flooring_shop
         }
         private void GenerateCaptcha()
         {
-            Random random = new Random();
-            string letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
-            string numbers = "23456789";
+            // Генерация 2 букв и 4 цифр
+            currentCaptcha = GenerateRandomText(2, true) + GenerateRandomText(4, false);
 
-            // Генерируем 2 буквы
-            char letter1 = letters[random.Next(letters.Length)];
-            char letter2 = letters[random.Next(letters.Length)];
+            // Создаем изображение CAPTCHA
+            Bitmap bmp = new Bitmap(CaptchaPanel.Width, CaptchaPanel.Height);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.Clear(Color.White);
 
-            // Генерируем 4 цифры
-            char num1 = numbers[random.Next(numbers.Length)];
-            char num2 = numbers[random.Next(numbers.Length)];
-            char num3 = numbers[random.Next(numbers.Length)];
-            char num4 = numbers[random.Next(numbers.Length)];
+                // Добавляем рельефность
+                for (int i = 0; i < currentCaptcha.Length; i++)
+                {
+                    DrawCharacter(g, currentCaptcha[i], i);
+                }
 
-            // Собираем CAPTCHA (2 буквы + 4 цифры)
-            currentCaptcha = $"{letter1}{letter2}{num1}{num2}{num3}{num4}";
+                // Добавляем зачёркивающую линию
+                DrawStrikeThrough(g);
 
-            // Отображаем CAPTCHA
-            СaptchaLabel.Text = currentCaptcha;
+                // Добавляем шум
+                AddNoise(g, 30);
+            }
 
-            // Добавляем визуальные эффекты
-            СaptchaLabel.Font = new Font("Arial", 14, FontStyle.Bold);
-            СaptchaLabel.ForeColor = Color.FromArgb(random.Next(100, 200), random.Next(100, 200), random.Next(100, 200));
+            CaptchaPanel.BackgroundImage = bmp;
         }
         private void ShowCaptcha()
         {
@@ -186,12 +187,6 @@ namespace flooring_shop
             captchaTextBox.Enabled = true;
             checkCaptchaButton.Enabled = true;
             refreshCapthaButton.Enabled = true;
-
-            // Блокируем основные поля ввода
-            Logintxt.Enabled = false;
-            Pwdtxt.Enabled = false;
-            LoginIn.Enabled = false;
-            EyeBtn.Enabled = false;
         }
         private void HideCaptcha()
         {
@@ -201,35 +196,87 @@ namespace flooring_shop
             checkCaptchaButton.Enabled = false;
             refreshCapthaButton.Enabled = false;
 
-            // Разблокируем основные поля ввода
-            Logintxt.Enabled = true;
-            Pwdtxt.Enabled = true;
-            LoginIn.Enabled = true;
-            EyeBtn.Enabled = true;
         }
         private void checkCaptchaButton_Click(object sender, EventArgs e)
         {
-            if (captchaTextBox.Text == currentCaptcha)
+            if (captchaTextBox.Text.Equals(currentCaptcha, StringComparison.OrdinalIgnoreCase))
             {
-                MessageBox.Show("CAPTCHA пройдена успешно!");
+
                 HideCaptcha();
+                MessageBox.Show("CAPTCHA пройдена успешно!");
+                LoginIn_Click(sender,e);
                 failedAttempts = 0; // Сбрасываем счетчик неудачных попыток
             }
             else
             {
                 MessageBox.Show("Неверная CAPTCHA! Попробуйте еще раз.");
                 GenerateCaptcha();
-                captchaTextBox.Text = "";
-                captchaTextBox.Focus();
+                captchaTextBox.Clear();
+                Logintxt.Focus();
             }
         }
 
         private void refreshCapthaButton_Click(object sender, EventArgs e)
         {
             GenerateCaptcha();
-            captchaTextBox.Text = "";
+            captchaTextBox.Clear();
             captchaTextBox.Focus();
         }
+        private Color GetRandomColor()
+        {
+            return Color.FromArgb(random.Next(100, 200), random.Next(100, 200), random.Next(100, 200));
+        }
+        private void AddNoise(Graphics g, int noiseCount)
+        {
+            for (int i = 0; i < noiseCount; i++)
+            {
+                using (Pen pen = new Pen(GetRandomColor(), 0.5f))
+                {
+                    Point p1 = new Point(random.Next(CaptchaPanel.Width), random.Next(CaptchaPanel.Height));
+                    Point p2 = new Point(p1.X + random.Next(-3, 3), p1.Y + random.Next(-3, 3));
+                    g.DrawLine(pen, p1, p2);
+                }
+            }
+        }
+        private void DrawCharacter(Graphics g, char c, int position)
+        {
+            FontStyle style = (FontStyle)(random.Next(3) * 2); // Regular, Bold или Italic
+            Font font = new Font("Arial", 14 + random.Next(6), style);
 
+            // Эффект рельефа
+            for (int i = 0; i < 3; i++)
+            {
+                Color color = i == 1 ? GetRandomColor() :
+                             (i == 0 ? Color.LightGray : Color.DarkGray);
+
+                PointF point = new PointF(
+                    10 + position * 20 + (i == 0 ? -1 : (i == 2 ? 1 : 0)),
+                    10 + (i == 0 ? -1 : (i == 2 ? 1 : 0)));
+
+                using (SolidBrush brush = new SolidBrush(color))
+                {
+                    g.DrawString(c.ToString(), font, brush, point);
+                }
+            }
+        }
+        private void DrawStrikeThrough(Graphics g)
+        {
+            using (Pen pen = new Pen(GetRandomColor(), 1.5f))
+            {
+                pen.DashStyle = DashStyle.Dash;
+                g.DrawLine(pen, 5, CaptchaPanel.Height / 2 + random.Next(-5, 5),
+                    CaptchaPanel.Width - 5, CaptchaPanel.Height / 2 + random.Next(-5, 5));
+            }
+        }
+        private string GenerateRandomText(int length, bool letters)
+        {
+            string subset = letters ? chars.Substring(0, 23) : chars.Substring(23);
+            char[] result = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                result[i] = subset[random.Next(subset.Length)];
+            }
+            return new string(result);
+        }
     }
 }
