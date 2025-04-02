@@ -11,7 +11,8 @@ namespace flooring_shop
     public partial class Authorization : Form
     {
         private bool passwordVisible = false;
-        private string currentCaptcha;
+        private string currentCaptcha= "";
+        private int failedAttempts = 0;
         public Authorization()
         {
             InitializeComponent();
@@ -157,10 +158,35 @@ namespace flooring_shop
             СaptchaLabel.Font = new Font("Arial", 14, FontStyle.Bold);
             СaptchaLabel.ForeColor = Color.FromArgb(random.Next(100, 200), random.Next(100, 200), random.Next(100, 200));
         }
+        private void HideCaptcha()
+        {
+            CaptchaPanel.Visible = false;
+            captchaTextBox.Text = "";
+            captchaTextBox.Enabled = false;
+            checkCaptchaButton.Enabled = false;
+            refreshCapthaButton.Enabled = false;
 
+            // Разблокируем основные поля ввода
+            Logintxt.Enabled = true;
+            Pwdtxt.Enabled = true;
+            LoginIn.Enabled = true;
+            EyeBtn.Enabled = true;
+        }
         private void checkCaptchaButton_Click(object sender, EventArgs e)
         {
-
+            if (captchaTextBox.Text == currentCaptcha)
+            {
+                MessageBox.Show("CAPTCHA пройдена успешно!");
+                HideCaptcha();
+                failedAttempts = 0; // Сбрасываем счетчик неудачных попыток
+            }
+            else
+            {
+                MessageBox.Show("Неверная CAPTCHA! Попробуйте еще раз.");
+                GenerateCaptcha();
+                captchaTextBox.Text = "";
+                captchaTextBox.Focus();
+            }
         }
 
         private void refreshCapthaButton_Click(object sender, EventArgs e)

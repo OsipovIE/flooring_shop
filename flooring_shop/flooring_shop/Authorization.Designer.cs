@@ -172,9 +172,8 @@ namespace flooring_shop
             this.СaptchaLabel.AutoSize = true;
             this.СaptchaLabel.Location = new System.Drawing.Point(54, 36);
             this.СaptchaLabel.Name = "СaptchaLabel";
-            this.СaptchaLabel.Size = new System.Drawing.Size(85, 23);
+            this.СaptchaLabel.Size = new System.Drawing.Size(0, 23);
             this.СaptchaLabel.TabIndex = 12;
-            this.СaptchaLabel.Text = "CAPTCHA";
             // 
             // label3
             // 
