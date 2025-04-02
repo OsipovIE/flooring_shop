@@ -47,7 +47,7 @@ CREATE TABLE `User` (
 CREATE TABLE `Product` (
   `ProductArticleNumber` varchar(100) NOT NULL,
   `ProductName` text NOT NULL,
-  `ProductUnit` varchar(4) NOT NULL,
+  `ProductUnit` varchar(50) NOT NULL,
   `ProductCost` decimal(19,4) NOT NULL,
   `ProductDiscountMax` tinyint DEFAULT NULL,
   `ProductManufacturer` int NOT NULL,

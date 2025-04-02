@@ -62,41 +62,74 @@ namespace flooring_shop
                     MessageBox.Show("Пожалуйста выберите таблицу.");
                     return;
                 }
+
                 OpenFileDialog openFileD = new OpenFileDialog
                 {
                     Filter = "CSV files (*.csv)|*.csv",
                     Title = "Выберите CSV файл"
                 };
+
                 if (openFileD.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        var csvData = File.ReadAllLines(openFileD.FileName);
+                        var csvData = File.ReadAllLines(openFileD.FileName, Encoding.GetEncoding(1251));
                         var columns = csvData[0].Split(';');
 
                         connection.Open();
 
-                        MySqlCommand cmd3 = new MySqlCommand($"SELECT * FROM {NameTable.SelectedItem} LIMIT 0", connection);
+                        MySqlCommand setNamesCmd = new MySqlCommand("SET NAMES 'utf8';", connection);
+                        setNamesCmd.ExecuteNonQuery();
+
+                        string tableName = NameTable.SelectedItem.ToString();
+                        if (IsMySqlReservedWord(tableName))
+                        {
+                            tableName = $"`{tableName}`";
+                        }
+
+                        // Получаем метаданные таблицы
+                        MySqlCommand cmd3 = new MySqlCommand($"SELECT * FROM {tableName} LIMIT 0", connection);
                         MySqlDataAdapter ad = new MySqlDataAdapter(cmd3);
                         DataTable dt = new DataTable();
                         ad.Fill(dt);
+
                         if (columns.Length != dt.Columns.Count)
                         {
                             MessageBox.Show("Кол-во колонок в файле не совпадает с выбранной таблицей");
                             return;
                         }
+
                         foreach (var line in csvData.Skip(1))
                         {
                             var values = line.Split(';');
-                            var querr = $"INSERT INTO {NameTable.SelectedItem} VALUES ({string.Join(", ", values.Select(v => $"{v}"))})";
-                            MySqlCommand insertCmd3 = new MySqlCommand(querr, connection);
+                            var formattedValues = new List<string>();
+
+                            for (int i = 0; i < values.Length; i++)
+                            {
+                                if (string.IsNullOrEmpty(values[i]))
+                                {
+                                    formattedValues.Add("NULL");
+                                }
+                                else if (dt.Columns[i].ColumnName == "VAR")
+                                {
+                                    formattedValues.Add(values[i]);
+                                }
+                                else
+                                {
+                                    formattedValues.Add($"'{MySqlHelper.EscapeString(values[i])}'");
+                                }
+                            }
+
+                            var query = $"INSERT INTO {tableName} VALUES ({string.Join(", ", formattedValues)})";
+                            MySqlCommand insertCmd3 = new MySqlCommand(query, connection);
                             insertCmd3.ExecuteNonQuery();
                         }
+
                         MessageBox.Show("Данные импортированы.");
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Ошибка при импорте" + ex.Message);
+                        MessageBox.Show("Ошибка при импорте: " + ex.Message);
                     }
                     finally
                     {
@@ -106,6 +139,13 @@ namespace flooring_shop
                 }
             }
         }
+
+        private bool IsMySqlReservedWord(string word)
+        {
+            var reservedWords = new List<string> { "order", "select", "insert", "update", "delete", "where", "group", "table" };
+            return reservedWords.Contains(word.ToLower());
+        }
+
 
         private void HealthBDbtn_Click(object sender, EventArgs e)
         {
