@@ -43,8 +43,6 @@ namespace flooring_shop
             // 
             // LoginIn
             // 
-            this.LoginIn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.LoginIn.BackColor = System.Drawing.Color.PeachPuff;
             this.LoginIn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LoginIn.Location = new System.Drawing.Point(12, 213);
@@ -79,8 +77,6 @@ namespace flooring_shop
             // 
             // Logintxt
             // 
-            this.Logintxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.Logintxt.Location = new System.Drawing.Point(12, 80);
             this.Logintxt.Name = "Logintxt";
             this.Logintxt.Size = new System.Drawing.Size(317, 30);
@@ -89,8 +85,6 @@ namespace flooring_shop
             // 
             // Pwdtxt
             // 
-            this.Pwdtxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.Pwdtxt.Location = new System.Drawing.Point(12, 154);
             this.Pwdtxt.Name = "Pwdtxt";
             this.Pwdtxt.Size = new System.Drawing.Size(283, 30);
@@ -110,8 +104,7 @@ namespace flooring_shop
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
@@ -124,9 +117,9 @@ namespace flooring_shop
             // 
             // EyeBtn
             // 
-            this.EyeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.EyeBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.EyeBtn.AutoSize = true;
-            this.EyeBtn.Location = new System.Drawing.Point(297, 157);
+            this.EyeBtn.Location = new System.Drawing.Point(301, 157);
             this.EyeBtn.Name = "EyeBtn";
             this.EyeBtn.Size = new System.Drawing.Size(32, 23);
             this.EyeBtn.TabIndex = 7;
@@ -139,7 +132,7 @@ namespace flooring_shop
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(345, 396);
+            this.ClientSize = new System.Drawing.Size(667, 396);
             this.Controls.Add(this.EyeBtn);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label3);
