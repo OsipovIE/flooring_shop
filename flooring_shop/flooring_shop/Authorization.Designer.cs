@@ -39,7 +39,6 @@ namespace flooring_shop
             this.EyeBtn = new System.Windows.Forms.Label();
             this.captchaTextBox = new System.Windows.Forms.TextBox();
             this.refreshCapthaButton = new System.Windows.Forms.Button();
-            this.checkCaptchaButton = new System.Windows.Forms.Button();
             this.CaptchaPanel = new System.Windows.Forms.Panel();
             this.СaptchaLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -144,19 +143,6 @@ namespace flooring_shop
             this.refreshCapthaButton.UseVisualStyleBackColor = false;
             this.refreshCapthaButton.Click += new System.EventHandler(this.refreshCapthaButton_Click);
             // 
-            // checkCaptchaButton
-            // 
-            this.checkCaptchaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkCaptchaButton.BackColor = System.Drawing.Color.PeachPuff;
-            this.checkCaptchaButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.checkCaptchaButton.Location = new System.Drawing.Point(501, 213);
-            this.checkCaptchaButton.Name = "checkCaptchaButton";
-            this.checkCaptchaButton.Size = new System.Drawing.Size(157, 64);
-            this.checkCaptchaButton.TabIndex = 10;
-            this.checkCaptchaButton.Text = "Проверить";
-            this.checkCaptchaButton.UseVisualStyleBackColor = false;
-            this.checkCaptchaButton.Click += new System.EventHandler(this.checkCaptchaButton_Click);
-            // 
             // CaptchaPanel
             // 
             this.CaptchaPanel.Controls.Add(this.СaptchaLabel);
@@ -194,7 +180,6 @@ namespace flooring_shop
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(667, 396);
             this.Controls.Add(this.CaptchaPanel);
-            this.Controls.Add(this.checkCaptchaButton);
             this.Controls.Add(this.refreshCapthaButton);
             this.Controls.Add(this.captchaTextBox);
             this.Controls.Add(this.EyeBtn);
@@ -233,7 +218,6 @@ namespace flooring_shop
         private System.Windows.Forms.Label EyeBtn;
         private System.Windows.Forms.TextBox captchaTextBox;
         private System.Windows.Forms.Button refreshCapthaButton;
-        private System.Windows.Forms.Button checkCaptchaButton;
         private System.Windows.Forms.Panel CaptchaPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label СaptchaLabel;

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -11,33 +12,117 @@ namespace flooring_shop
 {
     public partial class Authorization : Form
     {
+        private DateTime? blockEndTime = null;
+        private bool isBlocked = false;
+        private System.Windows.Forms.Timer unlockTimer;
+        private Label blockTimeLabel;
         private bool passwordVisible = false;
         private string currentCaptcha= "";
+        private int failedCaptchaAttempts = 0;
         private int failedAttempts = 0;
         private readonly Random random = new Random();
         private readonly string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
         public Authorization()
         {
             InitializeComponent();
+            InitializeBlockSystem();
             Pwdtxt.PasswordChar = '•';
             EyeBtn.Text = "#";
-            HideCaptcha();
+            captchaTextBox.Visible = false;
+            refreshCapthaButton.Visible = false;
         }
-
-        private void LoginIn_Click(object sender, EventArgs e)
+        private void UnlockTimer_Tick(object sender, EventArgs e)
         {
-                if (CaptchaPanel.Visible)
+            if (blockEndTime.HasValue)
+            {
+                var timeLeft = blockEndTime.Value - DateTime.Now;
+                if (timeLeft.TotalSeconds > 0)
                 {
-                    MessageBox.Show("Пожалуйста, сначала пройдите CAPTCHA");
-                    return;
+                    blockTimeLabel.Text = $"До разблокировки: {timeLeft.Seconds} сек.";
                 }
+                else
+                {
+                    UnlockApplication();
+                }
+            }
+        }
+        private void InitializeBlockSystem()
+        {
+            unlockTimer = new System.Windows.Forms.Timer();
+            unlockTimer.Interval = 1000;
+            unlockTimer.Tick += UnlockTimer_Tick;
 
-                string login = Logintxt.Text;
+            blockTimeLabel = new Label
+            {
+                Visible = false,
+                ForeColor = Color.Red,
+                Font = new Font("Comic Sans MS", 12, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(50,300),
+                Text = ""
+            };
+            this.Controls.Add(blockTimeLabel);
+        }
+        private void SetControlsEnabled(bool enabled)
+        {
+            Logintxt.Enabled = enabled;
+            Pwdtxt.Enabled = enabled;
+            Logintxt.Enabled = enabled;
+            EyeBtn.Enabled = enabled;
+            captchaTextBox.Enabled = enabled;
+            refreshCapthaButton.Enabled = enabled;
+            LoginIn.Enabled = enabled;
+        }
+        private async Task BlockApplication(int seconds)
+        {
+            isBlocked = true;
+            blockEndTime = DateTime.Now.AddSeconds(seconds);
+            SetControlsEnabled(false);
+            blockTimeLabel.Visible = true;
+            unlockTimer.Start();
+
+        }
+        private void UnlockApplication()
+        {
+            isBlocked = false;
+            blockEndTime = null;
+            blockTimeLabel.Visible = false;
+            SetControlsEnabled(true);
+            unlockTimer.Stop();
+            failedCaptchaAttempts = 0;
+            GenerateCaptcha();
+        }
+        private async void LoginIn_Click(object sender, EventArgs e)
+        {
+            if (refreshCapthaButton.Visible == true)
+            {
+                if (captchaTextBox.Text.Equals(currentCaptcha, StringComparison.OrdinalIgnoreCase))
+                {
+
+                    HideCaptcha();
+                    MessageBox.Show("CAPTCHA пройдена успешно!");
+                    LoginIn_Click(sender, e);
+                    failedAttempts = 0; // Сбрасываем счетчик неудачных попыток
+                }
+                else 
+                {
+                    failedCaptchaAttempts++;
+                    if (failedCaptchaAttempts == 1)
+                    {
+                        await BlockApplication(10);
+                        MessageBox.Show("Неверная CAPTCHA! Попробуйте еще раз.\nПриложение заблокировано на 10сек.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Stop);                        GenerateCaptcha();
+                        captchaTextBox.Clear();
+                        Logintxt.Focus();
+                    }
+                }
+            }
+
+            string login = Logintxt.Text;
                 string password = Pwdtxt.Text;
                 string localAdminLogin = ConfigurationManager.AppSettings["LocalAdminLogin"];
                 string localAdminPassword = ConfigurationManager.AppSettings["LocalAdminPassword"];
 
-                if (login == localAdminLogin && password == localAdminPassword)
+                if (login == localAdminLogin && password == localAdminPassword && failedCaptchaAttempts > 1)
                 {
                     DbSettingsForm setFo = new DbSettingsForm();
                     this.Hide();
@@ -63,6 +148,8 @@ namespace flooring_shop
 
                         string userFullName = $"{surname} {name[0]}.{patronymic[0]}.";
 
+                        if (failedCaptchaAttempts > 1)
+                    {
                         switch (role)
                         {
                             case 1:
@@ -88,22 +175,28 @@ namespace flooring_shop
                                 break;
                         }
                         failedAttempts = 0; // Сбрасываем счетчик при успешной авторизации
+
                     }
                     else
                     {
-                        failedAttempts++;
-                        MessageBox.Show("Неверный логин или пароль.");
 
-                        // После 3 неудачных попыток показываем CAPTCHA
-                        if (failedAttempts >= 3)
+                    }
+                }
+                    else
+                    {
+                        failedAttempts++;
+                    // После 1 неудачных попыток показываем CAPTCHA
+                    if (failedAttempts >= 1)
                         {
                         MessageBox.Show("Заполните поля еще раз, и пройдите капчу!","Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             ShowCaptcha();
                         Logintxt.Text = "";
                         Pwdtxt.Text = "";
                         Logintxt.Focus();
-                        }
+                        MessageBox.Show("Неверный логин или пароль.");
+
                     }
+                }
 
                     reader.Close();
                     dbConnection.CloseConnection();
@@ -182,38 +275,18 @@ namespace flooring_shop
         }
         private void ShowCaptcha()
         {
-            GenerateCaptcha();
             CaptchaPanel.Visible = true;
-            captchaTextBox.Enabled = true;
-            checkCaptchaButton.Enabled = true;
-            refreshCapthaButton.Enabled = true;
+            captchaTextBox.Visible = true;
+            refreshCapthaButton.Visible = true;
+            GenerateCaptcha();
         }
         private void HideCaptcha()
         {
             CaptchaPanel.Visible = false;
             captchaTextBox.Text = "";
-            captchaTextBox.Enabled = false;
-            checkCaptchaButton.Enabled = false;
-            refreshCapthaButton.Enabled = false;
+            captchaTextBox.Visible = false;
+            refreshCapthaButton.Visible = false;
 
-        }
-        private void checkCaptchaButton_Click(object sender, EventArgs e)
-        {
-            if (captchaTextBox.Text.Equals(currentCaptcha, StringComparison.OrdinalIgnoreCase))
-            {
-
-                HideCaptcha();
-                MessageBox.Show("CAPTCHA пройдена успешно!");
-                LoginIn_Click(sender,e);
-                failedAttempts = 0; // Сбрасываем счетчик неудачных попыток
-            }
-            else
-            {
-                MessageBox.Show("Неверная CAPTCHA! Попробуйте еще раз.");
-                GenerateCaptcha();
-                captchaTextBox.Clear();
-                Logintxt.Focus();
-            }
         }
 
         private void refreshCapthaButton_Click(object sender, EventArgs e)
