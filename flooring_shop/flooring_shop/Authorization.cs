@@ -148,40 +148,45 @@ namespace flooring_shop
 
                         string userFullName = $"{surname} {name[0]}.{patronymic[0]}.";
 
-                        if (failedCaptchaAttempts > 1)
-                    {
-                        switch (role)
-                        {
-                            case 1:
-                                Administrator adminForm = new Administrator();
-                                adminForm.SetAdminInfo(userFullName);
-                                this.Hide();
-                                adminForm.Show();
-                                break;
-                            case 2:
-                                SellerForm sellerForm = new SellerForm();
-                                sellerForm.SetUserInfo(userFullName);
-                                this.Hide();
-                                sellerForm.Show();
-                                break;
-                            case 3:
-                                CommoditySpecialist commodityForm = new CommoditySpecialist();
-                                commodityForm.SetUserInfomerch(userFullName);
-                                this.Hide();
-                                commodityForm.Show();
-                                break;
-                            default:
-                                MessageBox.Show("Доступ запрещен.");
-                                break;
-                        }
-                        failedAttempts = 0; // Сбрасываем счетчик при успешной авторизации
+                            if (failedCaptchaAttempts != 1)
+                            {
+                                switch (role)
+                                {
+                                    case 1:
+                                        Administrator adminForm = new Administrator();
+                                        adminForm.SetAdminInfo(userFullName);
+                                        this.Hide();
+                                        adminForm.Show();
+                                        break;
+                                    case 2:
+                                        SellerForm sellerForm = new SellerForm();
+                                        sellerForm.SetUserInfo(userFullName);
+                                        this.Hide();
+                                        sellerForm.Show();
+                                        break;
+                                    case 3:
+                                        CommoditySpecialist commodityForm = new CommoditySpecialist();
+                                        commodityForm.SetUserInfomerch(userFullName);
+                                        this.Hide();
+                                        commodityForm.Show();
+                                        break;
+                                    default:
+                                        MessageBox.Show("Доступ запрещен.");
+                                        break;
+                                }
+                                failedAttempts = 0; // Сбрасываем счетчик при успешной авторизации
+                                failedCaptchaAttempts = 0;
+                            }
+                            if(failedCaptchaAttempts == 1)
+                            {
+                                MessageBox.Show("Заполните поля еще раз, и пройдите капчу!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                ShowCaptcha();
+                                Logintxt.Text = "";
+                                Pwdtxt.Text = "";
+                                Logintxt.Focus();
+                            }
 
                     }
-                    else
-                    {
-
-                    }
-                }
                     else
                     {
                         failedAttempts++;
@@ -195,8 +200,8 @@ namespace flooring_shop
                         Logintxt.Focus();
                         MessageBox.Show("Неверный логин или пароль.");
 
+                         }   
                     }
-                }
 
                     reader.Close();
                     dbConnection.CloseConnection();
