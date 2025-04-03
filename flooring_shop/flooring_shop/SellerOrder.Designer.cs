@@ -76,7 +76,7 @@ namespace flooring_shop
             this.DGVProdOrderSeller.Name = "DGVProdOrderSeller";
             this.DGVProdOrderSeller.RowHeadersWidth = 51;
             this.DGVProdOrderSeller.RowTemplate.Height = 30;
-            this.DGVProdOrderSeller.Size = new System.Drawing.Size(770, 315);
+            this.DGVProdOrderSeller.Size = new System.Drawing.Size(770, 293);
             this.DGVProdOrderSeller.TabIndex = 100;
             // 
             // CmbFilter

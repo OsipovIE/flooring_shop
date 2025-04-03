@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -52,8 +53,40 @@ namespace flooring_shop
                 MessageBox.Show("Ошибка при загрузке категорий: " + ex.Message);
             }
         }
+        private void ApplyConditionalFormatting()
+        {
+            // Убедимся, что колонка "Остаток" существует
+            if (!DGVProdOrderSeller.Columns.Contains("Остаток"))
+                return;
 
-        // Загрузка товаров из базы данных
+            foreach (DataGridViewRow row in DGVProdOrderSeller.Rows)
+            {
+                if (row.Cells["Остаток"].Value != null)
+                {
+                    int quantity = Convert.ToInt32(row.Cells["Остаток"].Value);
+
+                    // Форматирование в зависимости от количества
+                    if (quantity <= 0)
+                    {
+                        // Нет в наличии
+                        row.DefaultCellStyle.BackColor = Color.LightCoral;
+                        row.DefaultCellStyle.ForeColor = Color.DarkRed;
+                    }
+                    else if (quantity <= 200)
+                    {
+                        // Мало товара
+                        row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow;
+                        row.DefaultCellStyle.ForeColor = Color.DarkGoldenrod;
+                    }
+                    else
+                    {
+                        // Достаточно товара
+                        row.DefaultCellStyle.BackColor = Color.LightGreen;
+                        row.DefaultCellStyle.ForeColor = Color.DarkGreen;
+                    }
+                }
+            }
+        }
         public void LoadProducts()
         {
             try
@@ -61,21 +94,24 @@ namespace flooring_shop
                 if (dbConnection.OpenConnection())
                 {
                     string query = @"
-                        SELECT
-                            ProductArticleNumber AS 'Артикул',
-                            ProductName AS 'Название',
-                            ProductUnit AS 'Единица',
-                            ProductCost AS 'Цена',
-                            ProductQuantityInStock AS 'Остаток',
-                            ProductDescription AS 'Описание',
-                            prodcategory.ProdCategoryName AS 'Категория'
-                        FROM Product INNER JOIN prodcategory ON ProductCategory = ProdCategoryID";
+                SELECT
+                    ProductArticleNumber AS 'Артикул',
+                    ProductName AS 'Название',
+                    ProductUnit AS 'Единица',
+                    ProductCost AS 'Цена',
+                    ProductQuantityInStock AS 'Остаток',
+                    ProductDescription AS 'Описание',
+                    prodcategory.ProdCategoryName AS 'Категория'
+                FROM Product INNER JOIN prodcategory ON ProductCategory = ProdCategoryID";
 
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, dbConnection.GetConnection()))
                     {
                         originalDataTable = new DataTable();
                         adapter.Fill(originalDataTable);
                         DGVProdOrderSeller.DataSource = originalDataTable;
+
+                        // Применяем условное форматирование после загрузки данных
+                        ApplyConditionalFormatting();
                     }
                     dbConnection.CloseConnection();
                 }
@@ -116,7 +152,6 @@ namespace flooring_shop
         {
             if (originalDataTable == null) return;
 
-            // Копируем оригинальные данные
             DataTable filteredDataTable = originalDataTable.Copy();
 
             // Применяем фильтр по категории
@@ -168,9 +203,9 @@ namespace flooring_shop
                     filteredDataTable.DefaultView.Sort = "";
                     break;
             }
-
             // Обновляем DataGridView
             DGVProdOrderSeller.DataSource = filteredDataTable.DefaultView.ToTable();
+            ApplyConditionalFormatting();
         }
  
         // Обработчик изменения выбора в ComboBox для фильтрации

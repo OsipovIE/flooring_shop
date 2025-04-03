@@ -52,7 +52,7 @@ namespace flooring_shop
             this.DGVHistoryOrder.RowHeadersWidth = 51;
             this.DGVHistoryOrder.RowTemplate.Height = 30;
             this.DGVHistoryOrder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVHistoryOrder.Size = new System.Drawing.Size(882, 349);
+            this.DGVHistoryOrder.Size = new System.Drawing.Size(882, 287);
             this.DGVHistoryOrder.TabIndex = 0;
             // 
             // CheckOrderBtn
@@ -61,7 +61,7 @@ namespace flooring_shop
             this.CheckOrderBtn.BackColor = System.Drawing.Color.PeachPuff;
             this.CheckOrderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.CheckOrderBtn.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckOrderBtn.Location = new System.Drawing.Point(224, 367);
+            this.CheckOrderBtn.Location = new System.Drawing.Point(224, 317);
             this.CheckOrderBtn.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.CheckOrderBtn.Name = "CheckOrderBtn";
             this.CheckOrderBtn.Size = new System.Drawing.Size(200, 100);
@@ -75,7 +75,7 @@ namespace flooring_shop
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.BackColor = System.Drawing.Color.PeachPuff;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(442, 367);
+            this.button1.Location = new System.Drawing.Point(442, 317);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(200, 100);
             this.button1.TabIndex = 8;
@@ -89,7 +89,7 @@ namespace flooring_shop
             this.CloseProdIsOr.BackColor = System.Drawing.Color.PeachPuff;
             this.CloseProdIsOr.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.CloseProdIsOr.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CloseProdIsOr.Location = new System.Drawing.Point(12, 367);
+            this.CloseProdIsOr.Location = new System.Drawing.Point(12, 317);
             this.CloseProdIsOr.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.CloseProdIsOr.Name = "CloseProdIsOr";
             this.CloseProdIsOr.Size = new System.Drawing.Size(200, 100);
@@ -100,10 +100,10 @@ namespace flooring_shop
             // 
             // HistorySeller
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 28F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.ClientSize = new System.Drawing.Size(880, 479);
+            this.ClientSize = new System.Drawing.Size(880, 429);
             this.Controls.Add(this.CloseProdIsOr);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.CheckOrderBtn);
